@@ -12,7 +12,7 @@
   <div class="col-lg-12">
     <% @users.each do |user| %>
       <div class="media">
-        <a href="#" class="pull-left">
+        <a href="/users/<%= user.id %>" class="pull-left">
           <%= gravatar_for user %>
         </a>
         <p class="small">

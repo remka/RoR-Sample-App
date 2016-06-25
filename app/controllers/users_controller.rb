@@ -6,7 +6,8 @@ class UsersController < ApplicationController
 
 
   def index
-    @users = User.paginate(page: params[:page])
+    # https://hackhands.com/pagination-rails-will_paginate-gem/
+    @users = User.paginate(page: params[:page], :per_page => 5)
   end
 
   def show
@@ -21,8 +22,9 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      flash[:success] = "Welcome to the Sample App!"
-      redirect_to @user
+      @user.send_activation_email
+      flash[:info] = "Please check your email to activate your account."
+      redirect_to root_url
     else
       render 'new'
     end
